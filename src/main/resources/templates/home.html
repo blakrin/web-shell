@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Getting Started: Serving Web Content</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	   <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+
+<body style="display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: space-around;">
+	<h1> SSH Web shell</h1>
+	<form  th:action="@{/connect}" th:object="${connect}" method="post">
+		<input type="text" placeholder="username" th:field="*{username}"  required />
+		<input type="password" placeholder="password" th:field="*{password}" required />
+		<input type="text" placeholder="server ip" th:field="*{serverIp}"  required />
+		<input type="number" placeholder="server port" th:field="*{port}"  />
+		<input type="submit" value="Connect" />
+	</form>
+	<label th:if="${connect.status}" style="color: green;
+    font-size: 30px"> Connected </label>
+    
+    
+    <label th:if="${!connect.status}" style="color: red;
+    font-size: 30px"> No connected </label>
+	<div th:if="${connect.status}">
+		<br />
+		<form  id="cmd-form">
+			<input type="text" placeholder="enter a command and presse enter to valide"
+			style="width: -webkit-fill-available;" id="command"/>
+			
+			<input type="submit" value="run" id = "run-cmd" hidden/>
+		</form>
+		<br />
+		<textarea readonly style="margin: 0px;
+    height: 507px;
+    width: 739px;" th:id="command-response" placeholder="output here"> </textarea>
+	</div>
+
+
+<script type="text/javascript"
+        src="webjars/jquery/2.2.4/jquery.min.js"></script>
+
+<script type="text/javascript" src="js/main.js"></script>
+</body>
+
+</html>
